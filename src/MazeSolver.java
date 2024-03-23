@@ -5,6 +5,7 @@
  */
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class MazeSolver {
     private Maze maze;
@@ -28,8 +29,24 @@ public class MazeSolver {
      */
     public ArrayList<MazeCell> getSolution() {
         // TODO: Get the solution from the maze
-        // Should be from start to end cells
-        return null;
+        // The stack has the backwards solution
+        Stack<MazeCell> inverseSolution = new Stack<MazeCell>();
+        // Backwards solution is reversed into the ArrayList
+        ArrayList<MazeCell> solution = new ArrayList<MazeCell>();
+
+        // Starts at the end and adds the parents to the stack
+        MazeCell check = maze.getEndCell();
+        while(!check.equals(maze.getStartCell())){
+            inverseSolution.push(check);
+            check = check.getParent();
+        }
+        solution.add(maze.getStartCell());
+
+        // Reverses order of stack into Arraylist and returns in order sln
+        while(!inverseSolution.empty()){
+            solution.add(inverseSolution.pop());
+        }
+        return solution;
     }
 
     /**
@@ -38,8 +55,41 @@ public class MazeSolver {
      */
     public ArrayList<MazeCell> solveMazeDFS() {
         // TODO: Use DFS to solve the maze
-        // Explore the cells in the order: NORTH, EAST, SOUTH, WEST
-        return null;
+        Stack<MazeCell> toVisit = new Stack<MazeCell>();
+        toVisit.push(maze.getStartCell());
+        int row = 0, col = 0;
+
+        // While loop finishes after end cell is explored, meaning the maze is solved
+        while(!maze.getEndCell().isExplored()){
+            row = toVisit.peek().getRow();
+            col = toVisit.peek().getCol();
+            // removes current cell from stack and sets its explored boolean to true
+            toVisit.pop().setExplored(true);
+
+            // Adds to stack in reverse order of W, S, E, then N
+            if(maze.isValidCell(row-1, col)){
+                toVisit.push(maze.getCell(row-1, col));
+                maze.getCell(row-1, col).setParent(maze.getCell(row, col));
+            }
+            if(maze.isValidCell(row, col-1)){
+                toVisit.push(maze.getCell(row, col-1));
+                maze.getCell(row, col-1).setParent(maze.getCell(row, col));
+            }
+            if(maze.isValidCell(row+1, col)){
+                toVisit.push(maze.getCell(row+1, col));
+                maze.getCell(row+1, col).setParent(maze.getCell(row, col));
+            }
+            if(maze.isValidCell(row, col+1)){
+                toVisit.push(maze.getCell(row, col+1));
+                maze.getCell(row, col+1).setParent(maze.getCell(row, col));
+            }
+
+            maze.printMaze();
+
+        }
+
+
+        return this.getSolution();
     }
 
     /**
