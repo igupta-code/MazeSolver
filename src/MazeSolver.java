@@ -5,7 +5,10 @@
  */
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
+import java.util.concurrent.LinkedBlockingDeque;
 
 public class MazeSolver {
     private Maze maze;
@@ -63,7 +66,7 @@ public class MazeSolver {
         while(!maze.getEndCell().isExplored()){
             row = toVisit.peek().getRow();
             col = toVisit.peek().getCol();
-            // removes current cell from stack and sets its explored boolean to true
+            // Removes current cell from stack and sets its explored boolean to true
             toVisit.pop().setExplored(true);
 
             // Adds to stack in reverse order of W, S, E, then N
@@ -83,12 +86,7 @@ public class MazeSolver {
                 toVisit.push(maze.getCell(row, col+1));
                 maze.getCell(row, col+1).setParent(maze.getCell(row, col));
             }
-
-            maze.printMaze();
-
         }
-
-
         return this.getSolution();
     }
 
@@ -96,9 +94,41 @@ public class MazeSolver {
      * Performs a Breadth-First Search to solve the Maze
      * @return An ArrayList of MazeCells in order from the start to end cell
      */
-    public ArrayList<MazeCell> solveMazeBFS() {
+    public ArrayList<MazeCell> solveMazeBFS(){
         // TODO: Use BFS to solve the maze
         // Explore the cells in the order: NORTH, EAST, SOUTH, WEST
+        Queue<MazeCell> toVisit = new LinkedList<MazeCell>();
+        toVisit.add(maze.getStartCell());
+        int row = 0, col = 0;
+
+        // While loop finishes after end cell is explored, meaning the maze is solved
+        while(!maze.getEndCell().isExplored()){
+            row = toVisit.peek().getRow();
+            col = toVisit.peek().getCol();
+            // Removes current cell from the front of the queue and sets its explored boolean to true
+            toVisit.remove().setExplored(true);
+
+            // Explores in order N, E, S, W
+            if(maze.isValidCell(row, col+1)){
+                toVisit.add(maze.getCell(row, col+1));
+                maze.getCell(row, col+1).setParent(maze.getCell(row, col));
+            }
+            if(maze.isValidCell(row+1, col)){
+                toVisit.add(maze.getCell(row+1, col));
+                maze.getCell(row+1, col).setParent(maze.getCell(row, col));
+            }
+            if(maze.isValidCell(row, col-1)){
+                toVisit.add(maze.getCell(row, col-1));
+                maze.getCell(row, col-1).setParent(maze.getCell(row, col));
+            }
+            if(maze.isValidCell(row-1, col)){
+                toVisit.add(maze.getCell(row-1, col));
+                maze.getCell(row-1, col).setParent(maze.getCell(row, col));
+            }
+
+
+        }
+
         return null;
     }
 
