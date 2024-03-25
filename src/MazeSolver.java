@@ -125,8 +125,6 @@ public class MazeSolver {
                 toVisit.add(maze.getCell(row-1, col));
                 maze.getCell(row-1, col).setParent(maze.getCell(row, col));
             }
-
-
         }
 
         return null;
