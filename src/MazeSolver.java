@@ -126,8 +126,10 @@ public class MazeSolver {
                 maze.getCell(row-1, col).setParent(maze.getCell(row, col));
             }
         }
+        //maze.printMaze();
 
-        return null;
+        return this.getSolution();
+
     }
 
     public static void main(String[] args) {
@@ -143,6 +145,7 @@ public class MazeSolver {
         maze.printSolution(sol);
 
         // Reset the maze
+        System.out.println();
         maze.reset();
 
         // Solve the maze using BFS and print the solution
