@@ -74,17 +74,17 @@ public class MazeSolver {
                 toVisit.push(maze.getCell(row-1, col));
                 maze.getCell(row-1, col).setParent(maze.getCell(row, col));
             }
-            if(maze.isValidCell(row, col-1)){
-                toVisit.push(maze.getCell(row, col-1));
-                maze.getCell(row, col-1).setParent(maze.getCell(row, col));
+            if(maze.isValidCell(row, col+1)){
+                toVisit.push(maze.getCell(row, col+1));
+                maze.getCell(row, col+1).setParent(maze.getCell(row, col));
             }
             if(maze.isValidCell(row+1, col)){
                 toVisit.push(maze.getCell(row+1, col));
                 maze.getCell(row+1, col).setParent(maze.getCell(row, col));
             }
-            if(maze.isValidCell(row, col+1)){
-                toVisit.push(maze.getCell(row, col+1));
-                maze.getCell(row, col+1).setParent(maze.getCell(row, col));
+            if(maze.isValidCell(row, col-1)){
+                toVisit.push(maze.getCell(row, col-1));
+                maze.getCell(row, col-1).setParent(maze.getCell(row, col));
             }
         }
         return this.getSolution();
