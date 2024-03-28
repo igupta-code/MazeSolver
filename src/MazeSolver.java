@@ -1,3 +1,5 @@
+// Isha Gupta
+// March 28, 2024
 /**
  * Solves the given maze using DFS or BFS
  * @author Ms. Namasivayam
@@ -32,7 +34,7 @@ public class MazeSolver {
      */
     public ArrayList<MazeCell> getSolution() {
         // TODO: Get the solution from the maze
-        // The stack has the backwards solution
+        // The stack stores the backwards solution
         Stack<MazeCell> inverseSolution = new Stack<MazeCell>();
         // Backwards solution is reversed into the ArrayList
         ArrayList<MazeCell> solution = new ArrayList<MazeCell>();
@@ -58,18 +60,19 @@ public class MazeSolver {
      */
     public ArrayList<MazeCell> solveMazeDFS() {
         // TODO: Use DFS to solve the maze
+        // Stack of cells that need to be visited starts with the start cell
         Stack<MazeCell> toVisit = new Stack<MazeCell>();
         toVisit.push(maze.getStartCell());
         int row = 0, col = 0;
 
         // While loop finishes after end cell is explored, meaning the maze is solved
         while(!maze.getEndCell().isExplored()){
+            // Removes current cell from stack and sets its explored boolean to true
             row = toVisit.peek().getRow();
             col = toVisit.peek().getCol();
-            // Removes current cell from stack and sets its explored boolean to true
             toVisit.pop().setExplored(true);
 
-            // Adds to stack in reverse order of W, S, E, then N
+            // Adds to stack in order of N, E, S, then W
             if(maze.isValidCell(row-1, col)){
                 toVisit.push(maze.getCell(row-1, col));
                 maze.getCell(row-1, col).setParent(maze.getCell(row, col));

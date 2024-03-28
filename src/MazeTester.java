@@ -1,3 +1,5 @@
+// Isha Gupta
+// March 28, 2024
 /**
  * A class to test our MazeSolver
  * @author: Nandhini Namasivayam

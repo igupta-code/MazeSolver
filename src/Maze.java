@@ -1,3 +1,5 @@
+// Isha Gupta
+// March 28, 2024
 /**
  * Creates a Maze made up of MazeCells
  * @author Ms. Namasivayam
@@ -146,10 +148,11 @@ public class Maze {
      * @return boolean true/false
      */
     public boolean isValidCell(int row, int col) {
-        // TODO: Complete this function
+        // Returns false if the cell is outside the maze
         if(row < 0 || col < 0 || row >= numRows || col >= numCols){
             return false;
         }
+        // Returns true if the cell has not been explored and is not a wall
         return !mazeGrid[row][col].isExplored() && !mazeGrid[row][col].isWall();
     }
 }

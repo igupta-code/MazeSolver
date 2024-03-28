@@ -1,3 +1,5 @@
+// Isha Gupta
+// March 28, 2024
 /**
  * A class that represents a single cell of the maze.
  * @author Ms. Namasivayam
