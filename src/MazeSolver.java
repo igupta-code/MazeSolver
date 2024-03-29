@@ -90,6 +90,7 @@ public class MazeSolver {
                 maze.getCell(row, col-1).setParent(maze.getCell(row, col));
             }
         }
+        // After the maze has been solved, call getSolution to trace the final path
         return this.getSolution();
     }
 
@@ -99,7 +100,7 @@ public class MazeSolver {
      */
     public ArrayList<MazeCell> solveMazeBFS(){
         // TODO: Use BFS to solve the maze
-        // Explore the cells in the order: NORTH, EAST, SOUTH, WEST
+        // Queue used to store cells toVist -- first cell added is the first to be visited
         Queue<MazeCell> toVisit = new LinkedList<MazeCell>();
         toVisit.add(maze.getStartCell());
         int row = 0, col = 0;
@@ -112,6 +113,10 @@ public class MazeSolver {
             toVisit.remove().setExplored(true);
 
             // Explores in order N, E, S, W
+            if(maze.isValidCell(row-1, col)){
+                toVisit.add(maze.getCell(row-1, col));
+                maze.getCell(row-1, col).setParent(maze.getCell(row, col));
+            }
             if(maze.isValidCell(row, col+1)){
                 toVisit.add(maze.getCell(row, col+1));
                 maze.getCell(row, col+1).setParent(maze.getCell(row, col));
@@ -124,15 +129,9 @@ public class MazeSolver {
                 toVisit.add(maze.getCell(row, col-1));
                 maze.getCell(row, col-1).setParent(maze.getCell(row, col));
             }
-            if(maze.isValidCell(row-1, col)){
-                toVisit.add(maze.getCell(row-1, col));
-                maze.getCell(row-1, col).setParent(maze.getCell(row, col));
-            }
         }
-        //maze.printMaze();
-
+        // After the maze has been solved, call getSolution to trace the final path
         return this.getSolution();
-
     }
 
     public static void main(String[] args) {
